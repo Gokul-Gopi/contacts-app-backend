@@ -13,7 +13,8 @@ const userSchema = new Schema({
     required: [true, "User lastname  required"],
   },
   mobile: {
-    type: Number,
+    type: String,
+    unique: true,
     required: [true, "User phone number required"],
   },
 });
@@ -41,7 +42,7 @@ const messageSchema = new Schema({
 const sendMesageBodySchema = Joi.object({
   message: Joi.string().min(6).max(100).required(),
   otp: Joi.string().min(6).max(6).required(),
-  mobile: Joi.number().required(),
+  mobile: Joi.string().required(),
   firstname: Joi.string().required(),
   lastname: Joi.string().required(),
 });

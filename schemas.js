@@ -1,5 +1,22 @@
-import mongoose from "mongoose";
+const Joi = require("joi");
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
+
+//database schemas
+const userSchema = new Schema({
+  firstname: {
+    type: String,
+    required: [true, "User firstname required"],
+  },
+  lastname: {
+    type: String,
+    required: [true, "User lastname  required"],
+  },
+  mobile: {
+    type: Number,
+    required: [true, "User phone number required"],
+  },
+});
 
 const messageSchema = new Schema({
   message: {
@@ -20,17 +37,14 @@ const messageSchema = new Schema({
   date: { type: Date, default: Date.now },
 });
 
-const userSchema = new Schema({
-  firstname: {
-    type: String,
-    required: [true, "User firstname required"],
-  },
-  lastname: {
-    type: String,
-    required: [true, "User lastname  required"],
-  },
-  mobile: {
-    type: Number,
-    required: [true, "User phone number required"],
-  },
+//validation schemas for request body
+const sendMesageBodySchema = Joi.object({
+  message: Joi.string().min(6).max(100).required(),
+  otp: Joi.string().min(6).max(6).required(),
+  mobile: Joi.number().required(),
+  firstname: Joi.string().required(),
+  lastname: Joi.string().required(),
 });
+
+const Message = mongoose.model("Message", messageSchema);
+module.exports = { Message, sendMesageBodySchema };

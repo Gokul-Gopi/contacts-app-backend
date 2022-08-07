@@ -3,13 +3,16 @@ const app = express();
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const connectToMongo = require("./connectToDB");
+const connectToMongo = require("./utils/connectToDB");
+const { sendMessage } = require("./controllers");
 dotenv.config();
 connectToMongo();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
+
+app.post("/message", sendMessage);
 
 app.get("/", (req, res) => {
   res.send("API is running...");

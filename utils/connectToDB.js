@@ -5,7 +5,6 @@ const connectToMongo = async () => {
     await mongoose.connect(`${process.env.MONGO_URI}/contacts`);
     console.log(`MongoDB Connected`);
   } catch (error) {
-    console.log(error);
     console.log(`Error: ${error.message}`);
   }
 };

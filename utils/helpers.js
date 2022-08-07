@@ -1,5 +1,5 @@
 const throwErrorObject = (code, message) => {
-  return { code, message };
+  return { status_code: code, message };
 };
 
 module.exports = { throwErrorObject };
